@@ -32,7 +32,22 @@ app.post('/products', function(req, res) {
     id: currentId,
     name: productName
   });
+
   res.send('Successfully created product!');
+});
+
+app.put('/products/:id', function(req, res) {
+  var id = req.params.id;
+  var newName = req.body.newName;
+  var found = false;
+
+  products.forEach(function(product, index) {
+    if (!found && product.id === Number(id)) {
+      product.name = newName;
+    }
+  });
+
+  res.send('Successfully updated product!');
 });
 
 app.listen(PORT, function() {
